@@ -1,0 +1,22 @@
+{
+  "name": "360ofme_tech_test",
+  "version": "1.0.0",
+  "description": "360 of me tech skills test",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js -w /custom_modules -w /package.json -w /server.js -e html,json,css,js"
+  },
+  "author": "Jesse Palmquist",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "forever": "^0.15.2",
+    "mongoose": "^4.6.3",
+    "request": "^2.75.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
