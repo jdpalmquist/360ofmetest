@@ -19,7 +19,7 @@ var Order = require('./schemas/order_schema');
 
 
 //	OPEN A CONNECTION TO MONGODB
-var conn = Mongoose.createConnection(cfg.get.conn_str());
+var conn = Mongoose.createConnection(Cfg.get.conn_str());
 
 
 //	PROCESS SCHEMAS INTO MODELS
