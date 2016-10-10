@@ -25,7 +25,7 @@ var socketapi 	= require('./custom_modules/rest_api_socketio');
 
 //	MIDDLEWARE DECLARATIONS
 app.use(BodyParser.json()); 
-app.use(express.static('public')); //static serve the SPA html from ./public/
+app.use(express.static(__dirname + '/public')); //static serve the SPA html from ./public/
 
 
 //	SALESFORCE CALLBACK API ROUTES
