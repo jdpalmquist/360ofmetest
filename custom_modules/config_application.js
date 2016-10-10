@@ -6,7 +6,7 @@
 */
 var cfg = {
 	flags: {
-		is_dev: false,
+		is_dev: true,
 	},
 	dev: {
 		port: 8080,
