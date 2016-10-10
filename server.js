@@ -16,7 +16,7 @@ var BodyParser  = require('body-parser');
 
 // 	REQUIRED CUSTOM MODULES
 var Cfg 		= require('./custom_modules/config_application');
-var Db 			= require('./custom_modules/database');
+//var Db 			= require('./custom_modules/database');
 var salesforce 	= require('./custom_modules/rest_api_salesforce');
 var socketapi 	= require('./custom_modules/rest_api_socketio');
 
