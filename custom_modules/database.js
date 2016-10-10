@@ -3,7 +3,7 @@
 
 //	DATABASE EXPORT OBJECT
 var db = {
-	order: null,
+	orders: null,
 };
 
 //	REQUIRED LIBRARIES
@@ -23,7 +23,7 @@ var conn = Mongoose.createConnection(Cfg.get.conn_str());
 
 
 //	PROCESS SCHEMAS INTO MODELS
-db.order = conn.model("order", Order.schema);
+db.orders = conn.model("orders", Order.schema);
 
 
 //	EXPORT THE DATABASE OBJECT WITH THE ATTACHED MODELS

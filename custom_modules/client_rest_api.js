@@ -3,7 +3,7 @@
 var Db = require('./database');
 
 
-
+/**/
 function get_orders(req, res){
 	//var params = req.body;
 
@@ -18,16 +18,38 @@ function get_orders(req, res){
 			});
 		}
 		else{
-			res.send({
-				response: "success",
-				data: data
-			});
+			if(data.length > 0){
+				res.send({
+					response: "success",
+					data: data
+				});				
+			}
+			else{
+				//empty result set
+				res.send({
+					response: "success",
+					data: []
+				});
+			}
 		}
 	});
 }
 
 
+/**/
+function get_order(){
+
+}
+
+
+/**/
+function create_order(){
+
+}
+
 
 module.exports = {
-	get_orders: get_orders
+	get_orders: get_orders,
+	get_order: get_order,
+	create_order: create_order,
 };
