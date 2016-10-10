@@ -13,24 +13,17 @@ var io 			= require('socket.io')(server);
 
 
 //	REQUIRED NPM LIBRARIES
-var BodyParser  = require('body-parser');
+var body_parser = require('body-parser');
 
 
 // 	REQUIRED CUSTOM MODULES
-var Cfg 		= require('./custom_modules/config_application');
-//var Db 			= require('./custom_modules/database');
-var salesforce 	= require('./custom_modules/rest_api_salesforce');
+var cfg 		= require('./custom_modules/config_application');
 var socketapi 	= require('./custom_modules/rest_api_socketio');
 
 
 //	MIDDLEWARE DECLARATIONS
-app.use(BodyParser.json()); 
+app.use(body_parser.json()); 
 app.use(express.static(__dirname + '/public')); //static serve the SPA html from ./public/
-
-
-//	SALESFORCE CALLBACK API ROUTES
-app.route('/salesforce/oauth/callback').all(salesforce.oauth_callback);
-app.route('/salesforce/create/order/callback').post(salesforce.create_order_callback);
 
 
 //  SOCKET.IO ROUTING 
@@ -42,4 +35,4 @@ io.on('connection', function (socket) {
 
 
 //	INITIALIZE THE SERVER PROCESS -- NOTE: SPECIAL CONFIG DUE TO SOCKET.IO INTEGRATION
-server.listen(Cfg.get.port(), Cfg.print.server_start);
+server.listen(cfg.get.port(), cfg.print.server_start);

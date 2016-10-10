@@ -6,12 +6,34 @@ var cfg 		= require('./config_salesforce');
 
 
 // 	LOAD REQUIRED LIBRARIES
+var sf 			= require('node-salesforce');
+
+
+var conn = new sf.Connection({
+  	// you can change loginUrl to connect to sandbox or prerelease env. 
+  	loginUrl : 'https://test.salesforce.com' 
+});
+conn.login(cfg.username, cfg.password, function(err, userInfo) {
+  if (err) { return console.error(err); }
+  // Now you can get the access token and instance URL information. 
+  // Save them to establish connection next time. 
+  console.log(conn.accessToken);
+  console.log(conn.instanceUrl);
+  // logged in user property 
+  console.log("User ID: " + userInfo.id);
+  console.log("Org ID: " + userInfo.organizationId);
+  // ... 
+});
+
+
+/*
 var request 	= require('request');
 
 
 //
-function oauth_callback(){
-
+function oauth_callback(req, res){
+	var params = req.body;
+	console.log('SALESFORCE_REST_API --> oauth_callback() --> params: ', params);
 }
 
 
@@ -38,16 +60,10 @@ function get_orders(){
 		}
 	});
 }
-
-
-
-function create_order_callback(req, res){
-
-}
-
-
 module.exports = {
 	oauth_callback: oauth_callback,
 	get_orders: get_orders,
 	create_order_callback: create_order_callback
 };
+*/
+
