@@ -12,7 +12,7 @@ var cfg = {
 		port: 8080,
 	},
 	prd: {
-		port: 80,
+		port: 443,
 	},
 };
 
