@@ -6,6 +6,7 @@ var cfg 		= require('./config_salesforce');
 
 
 // 	LOAD REQUIRED LIBRARIES
+var request 	= require('request');
 var sf 			= require('node-salesforce');
 
 
@@ -26,8 +27,6 @@ conn.login(cfg.username, cfg.password, function(err, userInfo) {
 });
 
 
-/*
-var request 	= require('request');
 
 
 //
@@ -35,7 +34,6 @@ function oauth_callback(req, res){
 	var params = req.body;
 	console.log('SALESFORCE_REST_API --> oauth_callback() --> params: ', params);
 }
-
 
 
 //
@@ -60,10 +58,12 @@ function get_orders(){
 		}
 	});
 }
+
+
 module.exports = {
 	oauth_callback: oauth_callback,
 	get_orders: get_orders,
-	create_order_callback: create_order_callback
 };
-*/
 
+/*
+*/
