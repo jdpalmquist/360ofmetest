@@ -2,6 +2,9 @@
 	360 of me: Tech Skills Test for Jesse Palmquist 
 */
 
+//	nodemon server.js -w /custom_modules -w /package.json -w /server.js -e html,json,css,js
+
+
 //	SERVER SETUP -- SPECIAL SETUP TO ACCOMODATE SOCKET.IO
 var express 	= require('express')
 var app 		= express();

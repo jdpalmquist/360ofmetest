@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js -w /custom_modules -w /package.json -w /server.js -e html,json,css,js"
+    "start": ""
   },
   "author": "Jesse Palmquist",
   "license": "ISC",
