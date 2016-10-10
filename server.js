@@ -17,42 +17,25 @@ var BodyParser  = require('body-parser');
 // 	REQUIRED CUSTOM MODULES
 var Cfg 		= require('./custom_modules/config_application');
 var Db 			= require('./custom_modules/database');
-var clientapi	= require('./custom_modules/client_rest_api');
-var salesforce 	= require('./custom_modules/salesforce_rest_api');
+var salesforce 	= require('./custom_modules/rest_api_salesforce');
+var socketapi 	= require('./custom_modules/rest_api_socketio');
 
 
 //	MIDDLEWARE DECLARATIONS
 app.use(BodyParser.json()); 
-app.use(express.static('public'));
-
-
-//	CLIENT API ROUTES
-app.route('/get/orders').get(clientapi.get_orders);
-app.route('/get/order').post(clientapi.get_order);
-app.route('/create/order').post(clientapi.create_order);
+app.use(express.static('public')); //static serve the SPA html from ./public/
 
 
 //	SALESFORCE CALLBACK API ROUTES
+app.route('/salesforce/oauth/callback').all(salesforce.oauth_callback);
 app.route('/salesforce/create/order/callback').post(salesforce.create_order_callback);
 
 
 //  SOCKET.IO ROUTING 
 io.on('connection', function (socket) {
-  //Examples
-  /*
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-  */
-  socket.emit('news', { hello: 'world' });
+	//CLIENT --> SERVER: GET ORDERS HANDLER
+	socket.on('/socketio/get/orders', function(){ socketapi.on.get_orders_from_salesforce(socket); });
 
-  socket.on('get orders', function(callback){
-  	var orders = [
-  		{number: 1, items: ['apple', 'pear', 'lemon']},
-  		{number: 2, items: ['onions', 'lettuce', 'celery']}
-  	];
-  	callback(orders);
-  });
 });
 
 

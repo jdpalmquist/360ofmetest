@@ -7,15 +7,18 @@ function($scope, $http, $location){
 
 	$scope.list = [];
 
-	$scope.get_orders = function(){
-		socket.emit('get orders', function(data){
-			console.log('SOCKET.IO --> get orders --> data: ', data);
-			$scope.list = data;
-			$scope.$apply();
-		});
-	};
-
 	jQuery(document).ready(function(){
-		$scope.get_orders();
+		//load the initial list of orders
+		socket.emit('/socketio/get/orders');
+		
 	});
+
+	
+	//socket response handlers
+	socket.on('/socketio/get/orders/response', function(data){
+		console.log(data);
+		$scope.list = data.orders;
+		$scope.$apply(); // gross, I need a better way to integrate socketio with angular digest loop
+	});
+
 }]);

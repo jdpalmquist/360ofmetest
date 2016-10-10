@@ -1,6 +1,7 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-12">
+			<br/>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="panel-title">
@@ -8,9 +9,24 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<div data-ng-repeat="l in list">
-						{{l.number}}) {{l.items}}
-					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Order #</th>
+								<th>Items</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="table-striped" data-ng-repeat="l in list">
+								<td>
+									{{l.number}}
+								</td>
+								<td>
+									{{l.items}}
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
