@@ -2,22 +2,18 @@ angular.module('360ofme')
 .config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/login', {
-        templateUrl: 'js/app/views/login.client.view.html',
-        controller: 'IndexController'
-      }).
-      when('/logout', {
-        templateUrl: 'js/app/views/login.client.view.html',
-        controller: 'IndexController'
-      }).
       when('/', {
-        templateUrl: 'js/app/views/index.client.view.html',
-        controller: 'IndexController'
+        templateUrl: 'js/app/views/orders.client.view.html',
+        controller: 'OrdersController'
       }).
-      when('/index', {
-        templateUrl: 'js/app/views/index.client.view.html',
-        controller: 'IndexController'
-      }).      
+      when('/orders', {
+        templateUrl: 'js/app/views/orders.client.view.html',
+        controller: 'OrdersController'
+      }).
+      when('/orders/:id',{
+        templateUrl: 'js/app/views/ordersdetail.client.view.html',
+        controller: 'OrdersdetailController'
+      }).
       otherwise({
         redirectTo: '/'
       });

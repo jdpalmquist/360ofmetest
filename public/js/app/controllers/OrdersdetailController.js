@@ -1,5 +1,5 @@
 angular.module('360ofme')
-.controller('IndexController', [
+.controller('OrdersdetailController', [
 '$scope',
 '$http', 
 '$location',
@@ -21,6 +21,9 @@ function($scope, $http, $location){
 	};
 
 	jQuery(document).ready(function(){
-		$scope.get_orders();
+		//$scope.get_orders();
+	
+
 	});
+	
 }]);

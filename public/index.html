@@ -19,7 +19,7 @@
     <link type="text/css" rel="stylesheet" href="js/vendor/bootstrap/dist/css/bootstrap-theme.min.css" />
 
   </head>
-  <body>
+  <body style="background-color: #555;">
     <!--[if lt IE 8]>
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
@@ -35,23 +35,23 @@
     <script type="text/javascript" src="js/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/vendor/moment/moment.js"></script>
 
-    <!-- Socket.io 
+    <!-- Socket.io -->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script>
+		  var socket = io.connect();
+  	</script>
 
-    <script type="text/javascript" src="/socket.io/socket-io.js"></script>
-    -->
-
-    <!-- Angular 1.* and friends -->
+    <!-- Angular 1.* and Dependencies -->
     <script type="text/javascript" src="js/vendor/angular/angular.min.js"></script>
     <script type="text/javascript" src="js/vendor/angular-route/angular-route.min.js"></script>
-    <script type="text/javascript" src="js/vendor/angular-socket-io/mock/socket-io.js"></script>
+    
+    
     <!-- Angular App and Route Declarations -->
     <script type="text/javascript" src="js/app/app.js"></script>
     <script type="text/javascript" src="js/app/app.routes.js"></script>
     <!-- Angular Controllers -->
-    <script type="text/javascript" src="js/app/controllers/IndexController.js"></script>
-    
-    <!-- Angular Services -->
-    
+    <script type="text/javascript" src="js/app/controllers/OrdersController.js"></script>
+    <script type="text/javascript" src="js/app/controllers/OrdersdetailController.js"></script>   
     
   </body>
 </html>

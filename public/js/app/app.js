@@ -1,1 +1,3 @@
-angular.module('360ofme', ['ngRoute']);
+angular.module('360ofme', [
+	'ngRoute',
+]);

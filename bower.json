@@ -9,7 +9,6 @@
   "dependencies": {
     "angular": "*.*",
     "angular-route": "*.*",
-    "angular-socket-io": "*.*",
     "bootstrap": "*.*",
     "font-awesome": "*.*",
     "jquery": "*.*",
