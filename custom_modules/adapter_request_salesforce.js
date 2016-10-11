@@ -9,6 +9,13 @@ var cfg     = require('./config_salesforce');
 var request = require('request');
 
 
+var oauth ={ 
+		callback: cfg.callbackUrl, 
+		consumer_key: cfg.consumerKey, 
+		consumer_secret: cfg.clientSecret
+	},
+	url = cfg.oauth.loginUrl;
+
 var options = {
 	url: cfg.oauth.loginUrl,
 	grant_type: 'authorization_code',
@@ -19,7 +26,7 @@ var options = {
 	password: cfg.password + cfg.accessToken
 };
 
-request.post(options, function(error, response, body){
+request.post({url: url, oauth: oauth}, function(error, response, body){
 	if(error){
 		console.error('SALESFORCE_REST_API --> salesforce_request() --> error: ', error);
 	}
