@@ -11,7 +11,7 @@ var request = require('request');
 
 var options = {
   url: cfg.oauth.loginUrl,
-  grant_type: 'password',
+  grant_type: cfg.password,
   client_id: cfg.consumerKey,
   client_secret: cfg.clientSecret,
   username: cfg.username,
