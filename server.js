@@ -28,8 +28,11 @@ app.use(express.static(__dirname + '/public')); //static serve the SPA html from
 
 //  SOCKET.IO ROUTING 
 io.on('connection', function (socket) {
-	//CLIENT --> SERVER: GET ORDERS HANDLER
+	//	CLIENT --> SERVER: GET ORDERS HANDLER
 	socket.on('/socketio/get/orders', function(){ socketapi.on.get_orders(socket); });
+
+	//	CLIENT --> SERVER: CREATE ORDER
+	socket.on('/socketio/create/order', function(data){ socketapi.on.create_order(socket, data); });
 
 });
 

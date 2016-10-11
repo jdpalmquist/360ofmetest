@@ -51,7 +51,7 @@ request.post(url, options, function(error, response, body1){
 				}
 				else{
 					body2 = JSON.parse(body2);
-					console.log('ADAPTER_REQUEST_SALESFORCE --> salesforce account object --> object received: ', body2);
+					//console.log('ADAPTER_REQUEST_SALESFORCE --> salesforce account object --> object received: ', body2);
 					cfg.set_account_object(body2);
 				}
 			});
@@ -86,7 +86,24 @@ function get(url, callback){
 
 
 function post(url, data, callback){
+	
+	var options = {
+	  	headers: {'content-type' : 'application/x-www-form-urlencoded'},
+	  	url:     url,
+	  	body:    data
+	};
 
+	request.post(options, function(error, response, body){
+		if(error){
+			console.error('SALESFORCE_REST_API --> salesforce_request() --> error: ', error);
+		}
+		else{
+			//console.log('SALESFORCE_REST_API --> salesforce_request() --> response: ', response);
+			console.log('SALESFORCE_REST_API --> salesforce_request() --> body: ', body);
+
+			callback(body);
+		}
+	});
 }
 
 

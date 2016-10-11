@@ -9,8 +9,12 @@ function($scope, $http, $location){
 
 	jQuery(document).ready(function(){
 		//load the initial list of orders
-		socket.emit('/socketio/get/orders');
+		//socket.emit('/socketio/get/orders');
 		
+
+		//DEBUG: test order creation
+		socket.emit('/socketio/create/order'); //no test data passed through!
+
 	});
 
 	

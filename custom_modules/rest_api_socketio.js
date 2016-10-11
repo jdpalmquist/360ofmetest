@@ -1,9 +1,16 @@
 /* SOCKETIO REST API MODULE */
 
+
+//	LOAD REQUIRED MODULES
+var moment 		= require('moment');
+
+
+//	LOAD CUSTOM MODULES
 var cfg 		= require('./config_salesforce');
 var adapter 	= require('./adapter_request_salesforce');
 
 
+/*
 function create_contract_order(socket){
 	var ext = '/services/data/'+cfg.version+'/commerce/sale';
 	var url = cfg.instanceUrl + ext;
@@ -13,6 +20,7 @@ function create_contract_order(socket){
   		socket.emit('/socketio/get/orders/response', {"data": {a:a, b:b, c:c, d:d}});
 	});
 }
+*/
 
 function create_order(){
 	/*
@@ -46,7 +54,32 @@ function create_order(){
 
 	var ext = '/services/data/' + cfg.version + '/commerce/sale/order';
 	var url = cfg.instanceUrl + ext;
-
+	var data = {
+		"order": [
+			{
+		      	"attributes": {
+			      "type": "Order"
+			   	},
+		     	"EffectiveDate": moment().format('YYYY-MM-DD'), // "2013-07-11",
+		      	"Status": "Draft",
+		      	"billingCity": "SFO-Inside-OrderEntity-1",
+		      	"accountId": cfg.account.user_id,
+		      	"Pricebook2Id": "01sD0000000G2NjIAK",
+		      	"OrderItems": {
+		        	"records": [
+		            	{
+		            		"attributes": {
+				               "type": "OrderItem"
+				            },
+		            		"PricebookEntryId": "01uD0000001c5toIAA",
+		            		"quantity": "1",
+		            		"UnitPrice": "15.99"
+		            	}
+		        	]
+		      	}
+		    }
+	    ]
+	};
 	adapter.post(url, data, function(a,b,c,d){
 		console.log('REST_API_SOCKETIO --> create_order() --> results: ', {a:a, b:b, c:c, d:d});
   		socket.emit('/socketio/create/order/response', {"data": {a:a, b:b, c:c, d:d}});
@@ -68,9 +101,9 @@ function get_orders_from_salesforce(socket){
 
 module.exports = {
 	emit: {
-		create_order: create_order,
 	},
 	on: {
-		get_orders: get_orders_from_salesforce
+		get_orders: get_orders_from_salesforce,
+		create_order: create_order,
 	}
 };
