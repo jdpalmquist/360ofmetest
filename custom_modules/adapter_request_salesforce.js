@@ -14,6 +14,7 @@ var options = {
 	grant_type: 'authorization_code',
 	client_id: cfg.consumerKey,
 	client_secret: cfg.clientSecret,
+	redirect_uri: cfg.callbackUrl,
 	username: cfg.username,
 	password: cfg.password + cfg.accessToken
 };
