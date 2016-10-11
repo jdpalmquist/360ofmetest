@@ -5,6 +5,10 @@
 var cfg     = require('./config_salesforce');
 
 
+//	LOAD THE REQUIRED MODULES
+var reuest 	= require('request');
+
+
 var options = {
   url: cfg.oauth.loginUrl,
   grant_type: 'password',
