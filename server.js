@@ -20,7 +20,7 @@ var body_parser = require('body-parser');
 var cfg 		= require('./custom_modules/config_application');
 var salesforce 	= require('./custom_modules/rest_api_salesforce');
 var socketapi 	= require('./custom_modules/rest_api_socketio');
-var adapter_sf 	= require('./adapter_node_salesforce');
+var adapter_sf 	= require('./custom_modules/adapter_node_salesforce');
 
 
 //	MIDDLEWARE DECLARATIONS
