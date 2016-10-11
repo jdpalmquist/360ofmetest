@@ -6,7 +6,7 @@ var cfg     = require('./config_salesforce');
 
 
 //	LOAD THE REQUIRED MODULES
-var reuest 	= require('request');
+var request = require('request');
 
 
 var options = {
@@ -18,7 +18,7 @@ var options = {
   password: cfg.password
 };
 
-request.get(options, function(error, response, body){
+request.post(options, function(error, response, body){
 	if(error){
 		console.error('SALESFORCE_REST_API --> salesforce_request() --> error: ', error);
 	}
