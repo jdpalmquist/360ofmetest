@@ -27,3 +27,16 @@ request.post(options, function(error, response, body){
 		console.log('SALESFORCE_REST_API --> salesforce_request() --> body: ', body);
 	}
 });
+
+
+//
+function oauth_callback(req, res){
+  var params = req.body;
+  console.log('SALESFORCE_REST_API --> oauth_callback() --> params: ', params);
+}
+
+
+module.exports = {
+    oauth_callback: oauth_callback,
+
+};
