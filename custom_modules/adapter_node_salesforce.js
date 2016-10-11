@@ -13,9 +13,9 @@ var conn = new sf.Connection({
     clientId : cfg.consumerKey,
     clientSecret : cfg.clientSecret,
     redirectUri : cfg.callbackUrl,
-    grant_type: 'password'
   }
 });
+
 
 conn.login(cfg.username, cfg.password, function(err, userInfo) {
     if (err) { return console.error('ADAPATER_NODE_SALESFORCE --> connect() --> err: ',err); }
@@ -30,16 +30,14 @@ conn.login(cfg.username, cfg.password, function(err, userInfo) {
 });
 
 
-function connect(){
-    if(conn == null){
-        
-    }else{
-
-    }
+//
+function oauth_callback(req, res){
+  var params = req.body;
+  console.log('SALESFORCE_REST_API --> oauth_callback() --> params: ', params);
 }
 
 
 module.exports = {
-    connect: connect,
+    oauth_callback: oauth_callback,
 
 };

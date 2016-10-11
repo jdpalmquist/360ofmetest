@@ -7,14 +7,6 @@ var cfg 		= require('./config_salesforce');
 
 // 	LOAD REQUIRED LIBRARIES
 var request 	= require('request');
-var adapter_sf 	= require('./adapter_node_salesforce');
-
-
-//
-function oauth_callback(req, res){
-	var params = req.body;
-	console.log('SALESFORCE_REST_API --> oauth_callback() --> params: ', params);
-}
 
 
 //
@@ -42,7 +34,6 @@ function get_orders(){
 
 
 module.exports = {
-	oauth_callback: oauth_callback,
 	get_orders: get_orders,
 };
 
