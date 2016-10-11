@@ -15,7 +15,7 @@ var options = {
   client_id: cfg.consumerKey,
   client_secret: cfg.clientSecret,
   username: cfg.username,
-  password: cfg.password
+  password: cfg.password + cfg.accessToken
 };
 
 request.post(options, function(error, response, body){
