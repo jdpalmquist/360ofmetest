@@ -7,8 +7,13 @@ var sf 			= require('node-salesforce');
 
 
 var conn = new sf.Connection({
+  oauth2 : {
     // you can change loginUrl to connect to sandbox or prerelease env. 
-    loginUrl : 'https://test.salesforce.com' 
+    // loginUrl : 'https://test.salesforce.com', 
+    clientId : cfg.consumerKey,
+    clientSecret : cfg.clientSecret,
+    redirectUri : cfg.callbackUrl
+  }
 });
 
 conn.login(cfg.username, cfg.password, function(err, userInfo) {

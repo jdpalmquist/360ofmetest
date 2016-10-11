@@ -7,8 +7,8 @@ var cfg 		= require('./config_salesforce');
 
 // 	LOAD REQUIRED LIBRARIES
 var request 	= require('request');
-
 var adapter_sf 	= require('./adapter_node_salesforce');
+
 
 //
 function oauth_callback(req, res){

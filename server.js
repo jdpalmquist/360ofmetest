@@ -18,12 +18,16 @@ var body_parser = require('body-parser');
 
 // 	REQUIRED CUSTOM MODULES
 var cfg 		= require('./custom_modules/config_application');
+var salesforce 	= require('./custom_modules/rest_api_salesforce');
 var socketapi 	= require('./custom_modules/rest_api_socketio');
 
 
 //	MIDDLEWARE DECLARATIONS
 app.use(body_parser.json()); 
 app.use(express.static(__dirname + '/public')); //static serve the SPA html from ./public/
+
+
+app.route('/salesforce/oauth2/callback').all(salesforce.oauth_callback);
 
 
 //  SOCKET.IO ROUTING 
