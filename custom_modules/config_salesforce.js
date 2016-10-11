@@ -11,6 +11,10 @@ var cfg = {
 	accessToken: 'Rq63fyerwQItxo5Onm8pUc3Iz',
 	instanceUrl: 'https://na35.salesforce.com',
 	callbackUrl: 'https://rocky-beyond-70420.herokuapp.com/salesforce/oauth2/callback',
+	oauth: {
+		loginUrl: 'https://login.salesforce.com/services/oauth2/token',
+		
+	}
 };
 
 cfg['set_access_token'] = function(token){
