@@ -6,7 +6,7 @@
 
 
 //	SERVER SETUP -- SPECIAL SETUP TO ACCOMODATE SOCKET.IO
-var express 	= require('express')
+var express 	= require('express');
 var app 		= express();
 var server 		= require('http').Server(app);
 var io 			= require('socket.io')(server);
@@ -18,9 +18,7 @@ var body_parser = require('body-parser');
 
 // 	REQUIRED CUSTOM MODULES
 var cfg 		= require('./custom_modules/config_application');
-var salesforce 	= require('./custom_modules/rest_api_salesforce');
 var socketapi 	= require('./custom_modules/rest_api_socketio');
-var adapter_sf 	= require('./custom_modules/adapter_request_salesforce');
 
 
 //	MIDDLEWARE DECLARATIONS
@@ -28,13 +26,10 @@ app.use(body_parser.json());
 app.use(express.static(__dirname + '/public')); //static serve the SPA html from ./public/
 
 
-app.route('/salesforce/oauth2/callback').all(adapter_sf.oauth_callback);
-
-
 //  SOCKET.IO ROUTING 
 io.on('connection', function (socket) {
 	//CLIENT --> SERVER: GET ORDERS HANDLER
-	socket.on('/socketio/get/orders', function(){ socketapi.on.get_orders_from_salesforce(socket); });
+	socket.on('/socketio/get/orders', function(){ socketapi.on.get_orders(socket); });
 
 });
 

@@ -15,9 +15,9 @@ function($scope, $http, $location){
 
 	
 	//socket response handlers
-	socket.on('/socketio/get/orders/response', function(data){
-		console.log(data);
-		$scope.list = data.orders;
+	socket.on('/socketio/get/orders/response', function(response){
+		console.log(response);
+		$scope.list = response.data;
 		$scope.$apply(); // gross, I need a better way to integrate socketio with angular digest loop
 	});
 
