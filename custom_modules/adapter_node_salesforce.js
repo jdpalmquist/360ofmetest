@@ -12,7 +12,8 @@ var conn = new sf.Connection({
     // loginUrl : 'https://test.salesforce.com', 
     clientId : cfg.consumerKey,
     clientSecret : cfg.clientSecret,
-    redirectUri : cfg.callbackUrl
+    redirectUri : cfg.callbackUrl,
+    grant_type: 'password'
   }
 });
 
