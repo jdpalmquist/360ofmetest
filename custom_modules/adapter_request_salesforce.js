@@ -10,12 +10,12 @@ var request = require('request');
 
 
 var options = {
-  url: cfg.oauth.loginUrl,
-  grant_type: cfg.password + cfg.accessToken,
-  client_id: cfg.consumerKey,
-  client_secret: cfg.clientSecret,
-  username: cfg.username,
-  password: cfg.password
+	url: cfg.oauth.loginUrl,
+	grant_type: 'password',
+	client_id: cfg.consumerKey,
+	client_secret: cfg.clientSecret,
+	username: cfg.username,
+	password: cfg.password + cfg.accessToken
 };
 
 request.post(options, function(error, response, body){
