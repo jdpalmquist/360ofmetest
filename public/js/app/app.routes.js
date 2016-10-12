@@ -22,6 +22,7 @@ angular.module('360ofme')
         templateUrl: 'js/app/views/account.detail.client.view.html',
         controller: 'AccountsController'
       }).
+      /*
       when('/contracts',{
         templateUrl: 'js/app/views/contracts.client.view.html',
         controller: 'ContractsController'
@@ -34,6 +35,7 @@ angular.module('360ofme')
         templateUrl: 'js/app/views/contract.detail.client.view.html',
         controller: 'ContractsController'
       }).
+      */
       when('/orders', {
         templateUrl: 'js/app/views/orders.client.view.html',
         controller: 'OrdersController'
