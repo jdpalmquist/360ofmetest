@@ -32,7 +32,6 @@ app.route('/describe/order').get(socketapi.on.describe.order);
 app.route('/describe/product').get(socketapi.on.describe.product);
 
 
-
 //  SOCKET.IO ROUTING 
 io.on('connection', function (socket) {
 	//	CLIENT --> SERVER: GET ORDERS HANDLER
@@ -48,16 +47,22 @@ io.on('connection', function (socket) {
 	socket.on('/server/create/account', function(data){ socketapi.on.create.account(socket, data); });
 
 
-
-
 	//	CLIENT --> SERVER: GET ALL ORDERS
 	socket.on('/server/get/orders', function(){ socketapi.on.get.all_orders(socket); });
 
 
 	//	CLIENT --> SERVER: CREATE ORDER
 	socket.on('/server/create/order', function(data){ socketapi.on.create.order(socket, data); });
+
+
+	//	CLIENT --> SERVER: GET ALL PRODUCTS
+	socket.on('/server/get/products', function(){ socketapi.on.get.all_products(socket); });
+
+
+	//	CLIENT --> SERVER: CREATE PRODUCT
+	socket.on('/server/create/product', function(data){ socketapi.on.create.product(socket, data); });	
 });
 
 
-//	INITIALIZE THE SERVER PROCESS -- NOTE: SPECIAL CONFIG DUE TO SOCKET.IO INTEGRATION
+//	INITIALIZE THE SERVER PROCESS -- NOTE: SPECIAL CONFIG DUE TO SOCKET.IO INTEGRATION ("server.listen", not "app.listen")
 server.listen(cfg.get.port(), cfg.print.server_start);

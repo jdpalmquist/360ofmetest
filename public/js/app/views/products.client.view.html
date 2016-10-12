@@ -12,20 +12,28 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<table class="table">
+					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>Product #</th>
 								<th>Name</th>
+								<th>Code</th>
+								<th>Family</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="table-striped" data-ng-repeat="l in list">
+							<tr class="" data-ng-repeat="l in list">
 								<td>
 									{{l.Id}}
 								</td>
 								<td>
 									{{l.Name}}
+								</td>
+								<td>
+									{{l.Code}}
+								</td>
+								<td>
+									{{l.Family}}
 								</td>
 							</tr>
 						</tbody>

@@ -312,7 +312,36 @@ function get_all_orders(socket){
 
 
 function get_all_products(socket){
+	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name FROM Product2';
+	var url = cfg.instanceUrl + ext;
+	var options = {
+	  	headers: {
+	  		'Authorization': 'Bearer ' + cfg.accessToken,
+	  		/*
+	  		'content-type' : 'application/json',
+	  		'content-type' : 'application/x-www-form-urlencoded',
+	  		*/
 
+	  	},
+	  	url: url,
+	  	
+	};
+
+	request.get(options, function(error, response, body){
+		if(error){
+			console.error('REST_API_SOCKETIO --> get_products() --> error: ', error);
+		}
+		else{
+			body = JSON.parse(body);
+			console.log('REST_API_SOCKETIO --> get_products() --> body: ', body);
+			
+			//response structure:
+			/*
+			*/
+			
+			socket.emit('/client/get/products/response', {"response": body.done ? "success" : "failure", "data": body.records});
+		}
+	});
 }
 
 
@@ -376,7 +405,7 @@ var describe = {
 		});
 	},
 	product: function(req, res){
-		var ext = '/services/data/' + cfg.version + '/sobjects/Product/describe';
+		var ext = '/services/data/' + cfg.version + '/sobjects/Product2/describe';
 		var url = cfg.instanceUrl + ext;
 		var options = {
 		  	headers: {

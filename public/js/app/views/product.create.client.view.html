@@ -17,15 +17,21 @@
 					  	<input data-ng-model="product_name" type="text" class="form-control" aria-label="Product name...">
 					</div>
 					<br/>
-					<!--
 					<div class="input-group">
-					  	<span class="input-group-addon">Account</span>
-					  	<select data-ng-model="account_id" class="form-control">
-					  		<option data-ng-repeat="a in accounts" value="{{a.Id}}">{{a.Name}}</option>
-					  	</select>
+					  	<span class="input-group-addon">Product Family</span>
+					  	<input data-ng-model="product_family" type="text" class="form-control" aria-label="Product family...">
 					</div>
 					<br/>
-					-->
+					<div class="input-group">
+					  	<span class="input-group-addon">Product Code</span>
+					  	<input data-ng-model="product_code" type="text" class="form-control" aria-label="Product code...">
+					</div>
+					<br/>
+					<div class="input-group">
+					  	<span class="input-group-addon">Product Description</span>
+					  	<input data-ng-model="product_description" type="text" class="form-control" aria-label="Product description...">
+					</div>
+					<br/>
 				</div>
 				<div class="panel-footer" style="text-align:right;">
 					<button class="btn btn-primary" data-ng-click="create_product()">

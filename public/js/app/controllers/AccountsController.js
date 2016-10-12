@@ -35,9 +35,10 @@ function($scope, $http, $location){
 
 				socket.emit('/server/create/account', data);
 				setTimeout(function(){
+					//give it 1/4 second to receive and process the request before changing location to that page
 					socket.emit('/server/get/accounts');
-					$location.path('/accounts');					
-				}, 500);
+					$location.path('/accounts');
+				}, 250);
 			}
 		},
 	};

@@ -5,4 +5,5 @@ angular.module('360ofme')
 function($scope, $location){
 	$scope.goto_accounts = function(){$location.path('/accounts');};
 	$scope.goto_orders = function(){$location.path('/orders');}
+	$scope.goto_products = function(){$location.path('/products');}
 }]);

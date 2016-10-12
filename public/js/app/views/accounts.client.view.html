@@ -12,12 +12,7 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<div style="text-align:right;">
-						<button class="btn btn-primary" data-ng-click="goto.create_account()">
-							Create New Account&nbsp;&nbsp;&raquo;
-						</button>
-					</div>
-					<table class="table">
+					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>
@@ -29,7 +24,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="table-striped" data-ng-repeat="l in account_list">
+							<tr class="" data-ng-repeat="l in account_list">
 								<td>
 									{{l.Id}}
 								</td>
@@ -39,11 +34,6 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
-				<div class="panel-footer" style="text-align:right;">
-					<button class="btn btn-primary" data-ng-click="goto.create_account()">
-						Create New Account&nbsp;&nbsp;&raquo;
-					</button>
 				</div>
 			</div>
 		</div>
