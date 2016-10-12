@@ -6,6 +6,8 @@ angular.module('360ofme')
 function($scope, $http, $location){
 	$scope.new_account_name = '';
 
+	$scope.account_list = [];
+
 	$scope.goto = {
 		accounts: function(){ $location.path('/accounts'); },
 		create_account: function(){ $location.path('/create/account'); },	
@@ -32,6 +34,10 @@ function($scope, $http, $location){
 				};
 
 				socket.emit('/server/create/account', data);
+				setTimeout(function(){
+					socket.emit('/server/get/accounts');
+					$location.path('/accounts');					
+				}, 500);
 			}
 		},
 	};
@@ -41,4 +47,17 @@ function($scope, $http, $location){
 	socket.on('/client/create/account/response', function(response){
 		console.log(response);
 	});
+	socket.on('/client/get/accounts/response', function(res){
+		console.log(res);
+		if(res.response == "success"){
+			$scope.account_list = res.data;
+			$scope.$apply(); // eww, I need a better way to update the digest cycle...
+		}
+	});
+
+
+	jQuery(document).ready(function(){
+		socket.emit('/server/get/accounts');
+	});
+
 }]);

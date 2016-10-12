@@ -8,28 +8,16 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="panel-title">
-						Orders
+						Create Contract
 					</div>
 				</div>
 				<div class="panel-body">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Order #</th>
-								<th>Items</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="table-striped" data-ng-repeat="l in list">
-								<td>
-									{{l.number}}
-								</td>
-								<td>
-									{{l.items}}
-								</td>
-							</tr>
-						</tbody>
-					</table>
+					
+				</div>
+				<div class="panel-footer" style="text-align:right;">
+					<button class="btn btn-primary" data-ng-click="create_contract()">
+						Create New Contract&nbsp;&nbsp;&raquo;
+					</button>
 				</div>
 			</div>
 		</div>

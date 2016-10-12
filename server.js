@@ -26,13 +26,25 @@ app.use(body_parser.json());
 app.use(express.static(__dirname + '/public')); //static serve the SPA html from ./public/
 
 
+//	DESCRIBE ROUTES FOR DISPLAYING SALESFORCE OBJECT METADATA
+app.route('/describe/account').get(socketapi.on.describe.account);
+
+
+
 //  SOCKET.IO ROUTING 
 io.on('connection', function (socket) {
 	//	CLIENT --> SERVER: GET ORDERS HANDLER
 	//socket.on('/server/get/orders', function(){ socketapi.on.get_orders(socket); });
 
+
 	//	CLIENT --> SERVER: CREATE ACCOUNT
 	socket.on('/server/create/account', function(data){ socketapi.on.create.account(socket, data); });
+
+
+	//	CLIENT --> SERVER: GET ALL ACCOUNTS
+	socket.on('/server/get/accounts', function(data){ socketapi.on.get_all_accounts(socket); });
+
+
 
 
 	//	CLIENT --> SERVER: CREATE ORDER

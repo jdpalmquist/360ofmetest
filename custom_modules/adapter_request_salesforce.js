@@ -63,6 +63,8 @@ request.post(url, options, function(error, response, body1){
 });
 
 
+
+//	CREATE FUNCTIONS
 //=============================================================
 
 
@@ -114,7 +116,41 @@ function create_order(socket, data){
 }
 
 
-function create_contract(){}
+function create_contract(){
+	var ext = '/services/data/' + cfg.version + '/sobjects/Account/';
+	var url = cfg.instanceUrl + ext;
+	var options = {
+	  	headers: {
+	  		'Authorization': 'Bearer ' + cfg.accessToken,
+	  		'content-type' : 'application/json'
+	  		/*'content-type' : 'application/x-www-form-urlencoded'*/
+
+	  	},
+	  	url:     url,
+	  	body:    JSON.stringify(data)
+	};
+
+	request.post(options, function(error, response, body){
+		if(error){
+			console.error('ADAPTER_REQUEST_SALESFORCE --> create_account() --> error: ', error);
+		}
+		else{
+			//console.log('ADAPTER_REQUEST_SALESFORCE --> create_account() --> response: ', response);
+			
+			//response structure:
+			/*
+				{
+					"id":"00141000006SLyTAAW",
+					"success":true,
+					"errors":[]
+				}
+			*/
+			console.log('ADAPTER_REQUEST_SALESFORCE --> create_account() --> body: ', body);
+
+			socket.emit('/client/create/account/response', {"success": body.success, "errors": body.errors});
+		}
+	});
+}
 
 
 function create_account(socket, data){
@@ -154,14 +190,98 @@ function create_account(socket, data){
 }
 
 
+//	GET FUNCTIONS
+//=============================================================
+
+
+function get_accounts(socket){
+
+	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, CreatedDate FROM Account ORDER BY CreatedDate DESC';
+	var url = cfg.instanceUrl + ext;
+	var options = {
+	  	headers: {
+	  		'Authorization': 'Bearer ' + cfg.accessToken,
+	  		/*
+	  		'content-type' : 'application/json',
+	  		'content-type' : 'application/x-www-form-urlencoded',
+	  		*/
+
+	  	},
+	  	url: url,
+	  	
+	};
+
+	request.get(options, function(error, response, body){
+		if(error){
+			console.error('ADAPTER_REQUEST_SALESFORCE --> get_accounts() --> error: ', error);
+		}
+		else{
+			body = JSON.parse(body);
+			//console.log('ADAPTER_REQUEST_SALESFORCE --> get_accounts() --> body: ', body);
+			
+			//response structure:
+			/*
+			*/
+			
+			socket.emit('/client/get/accounts/response', {"response": body.done ? "success" : "failure", "data": body.records});
+		}
+	});
+}
+
+
+function get_contracts(){}
+function get_orders(){}
+
+
+
+//	DESCRIBE FUNCTIONS
+//==================================================================================================
+
+
+function describe_account(req, res){
+	var ext = '/services/data/' + cfg.version + '/sobjects/Account/describe';
+	var url = cfg.instanceUrl + ext;
+	var options = {
+	  	headers: {
+	  		'Authorization': 'Bearer ' + cfg.accessToken,
+	  		/*
+	  		'content-type' : 'application/json',
+	  		'content-type' : 'application/x-www-form-urlencoded',
+	  		*/
+
+	  	},
+	  	url: url,
+	  	
+	};
+
+	request.get(options, function(error, response, body){
+		if(error){
+			console.error('ADAPTER_REQUEST_SALESFORCE --> describe_account() --> error: ', error);
+		}
+		else{
+			body = JSON.parse(body);
+			res.type('application/json');
+			res.send(body);
+		}
+	});
+}
+
+
+
+
 module.exports = {
     get: {
-
+    	all_accounts: get_accounts,
+    	all_contracts: get_contracts,
+    	all_orders: get_orders,
     },
     post: {
     	create_order_item: create_order_item,
     	create_order: create_order,
     	create_contract: create_contract,
     	create_account: create_account,
+    },
+    describe: {
+    	account: describe_account,
     }
 };

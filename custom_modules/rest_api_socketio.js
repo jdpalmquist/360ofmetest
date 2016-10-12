@@ -16,6 +16,10 @@ function create_account(socket, d){
 }
 
 
+function get_all_accounts(socket){
+	adapter.get.all_accounts(socket);
+}
+
 
 function create_order(socket, d){
 	//example data
@@ -92,14 +96,21 @@ function get_orders_from_salesforce(socket){
 }
 
 
-module.exports = {
-	emit: {
+var describe = {
+	account: function(req, res){
+		adapter.describe.account(req, res);
 	},
+};
+
+
+module.exports = {
 	on: {
+		get_all_accounts: get_all_accounts,
 		get_orders: get_orders_from_salesforce,
 		create: {
 			account: create_account,
 			order: create_order,
-		}
+		},
+		describe: describe
 	}
 };
