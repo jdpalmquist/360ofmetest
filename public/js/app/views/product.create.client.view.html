@@ -1,0 +1,38 @@
+<!-- Top Navigation Include -->
+<div data-ng-include="'js/app/views/nav.client.view.html'"></div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<br/>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">
+						Create Product
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="input-group">
+					  	<span class="input-group-addon">Name</span>
+					  	<input data-ng-model="product_name" type="text" class="form-control" aria-label="Product name...">
+					</div>
+					<br/>
+					<!--
+					<div class="input-group">
+					  	<span class="input-group-addon">Account</span>
+					  	<select data-ng-model="account_id" class="form-control">
+					  		<option data-ng-repeat="a in accounts" value="{{a.Id}}">{{a.Name}}</option>
+					  	</select>
+					</div>
+					<br/>
+					-->
+				</div>
+				<div class="panel-footer" style="text-align:right;">
+					<button class="btn btn-primary" data-ng-click="create_product()">
+						Create New Product&nbsp;&nbsp;&raquo;
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
