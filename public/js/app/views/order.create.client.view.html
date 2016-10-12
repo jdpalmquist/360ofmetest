@@ -24,6 +24,24 @@
 					  	</select>
 					</div>
 					<br/>
+					<div class="input-group">
+					  	<span class="input-group-addon">Products</span>
+					  	<select data-ng-model="product_id" class="form-control">
+					  		<option data-ng-repeat="p in products" value="{{p.Id}}">{{p.Name}}</option>
+					  	</select>
+					  	<span class="input-group-btn">
+					       	<button class="btn btn-primary" type="button" data-ng-click="add_product()">+ Add</button>
+					    </span>
+					</div>
+					<br/>
+					<div class="product_list_container">
+						<div>Added Products:</div>
+						<ul id="product_list">
+							<li data-ng-repeat="p in added_products">
+								{{p.Name}}
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="panel-footer" style="text-align:right;">
 					<button class="btn btn-primary" data-ng-click="create_order()">

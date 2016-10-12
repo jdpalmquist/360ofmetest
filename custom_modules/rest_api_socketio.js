@@ -339,7 +339,7 @@ function get_all_orders(socket){
 		}
 		else{
 			body = JSON.parse(body);
-			console.log('REST_API_SOCKETIO --> get_orders() --> body: ', body);
+			//console.log('REST_API_SOCKETIO --> get_orders() --> body: ', body);
 			
 			//response structure:
 			/*
@@ -351,7 +351,7 @@ function get_all_orders(socket){
 }
 
 
-function get_all_products(socket){
+function get_all_products(socket, page){
 	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, Family FROM Product2 ORDER BY CreatedDate DESC';
 	var url = cfg.instanceUrl + ext;
 	var options = {
@@ -379,7 +379,19 @@ function get_all_products(socket){
 			/*
 			*/
 			
-			socket.emit('/client/get/products/response', {"response": body.done ? "success" : "failure", "data": body.records});
+			var dest = '';
+			
+			//destination page: 
+			switch(page){
+				case "products":
+					dest = '/client/get/products/response';
+				break;	
+				case "create_order":
+					dest = '/client/get/products/response/create/order';
+				break;
+			}
+
+			socket.emit(dest, {"response": body.done ? "success" : "failure", "data": body.records});
 		}
 	});
 }

@@ -56,7 +56,8 @@ io.on('connection', function (socket) {
 
 
 	//	CLIENT --> SERVER: GET ALL PRODUCTS
-	socket.on('/server/get/products', function(){ socketapi.on.get.all_products(socket); });
+	socket.on('/server/get/products', function(){ socketapi.on.get.all_products(socket, 'products'); });
+	socket.on('/server/get/products/for/orders/page', function(){ socketapi.on.get.all_products(socket, 'create_order'); });
 
 
 	//	CLIENT --> SERVER: CREATE PRODUCT
