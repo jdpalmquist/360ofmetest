@@ -9,43 +9,53 @@ function($scope, $http, $location){
 	$scope.account_id = '';
 	$scope.accounts = [];
 
+	$scope.order_name = '';
 
 	$scope.goto = {
 		orders: function(){ $location.path('/orders'); },
 		create_order: function(){ $location.path('/create/order'); },
 	};
 
+
+	$scope.validate = {
+		create_new_order: function(){
+			if($scope.order_name != ''){
+				return true;
+			}
+			else{
+				alert("Name cannot be blank!");
+			}
+
+		},
+	};
+
 	
 	$scope.create_order = function(){
-		var data = {
-			"order": [
-			    {
-			      	"attributes": {
-			      		"type": "Order"
-			      	},
-			      	"EffectiveDate": moment().format('YYYY-MM-DD'),
-			      	"Status": "Draft",
-			      	"billingCity": "SFO-Inside-OrderEntity-1",
-			      	"accountId": $scope.account_id,
-			      	/*"Pricebook2Id": "01sD0000000G2NjIAK",*/ // docs say that pricebook has been deprecated since v8.0?
-			      	"OrderItems": {
-			         	"records": [
-				            {
-				            	"attributes": {
-				               		"type": "OrderItem"
-				            	},
-				            	/*"PricebookEntryId": "01uD0000001c5toIAA",*/  // docs say that pricebook has been deprecated since v8.0?
-				            	"quantity": "1",
-				            	"UnitPrice": "15.99"
-				            }
-			         	]
-			      	}
-			   	}
-			]
-		};
+		if($scope.validate.create_new_order()){			
+			var data = {
+				"order": [
+				    {
+				      	"attributes": {
+				      		"type": "Order"
+				      	},
+				      	"Name": $scope.order_name,
+				      	"EffectiveDate": moment().format('YYYY-MM-DD'),
+				      	"Status": "Draft",
+				      	"billingCity": "SFO-Inside-OrderEntity-1",
+				      	"accountId": $scope.account_id,
+				      	/*"Pricebook2Id": "01sD0000000G2NjIAK",*/ // docs say that pricebook has been deprecated since v8.0?
+				      	"OrderItems": {
+				         	"records": [
+					            
+				         	]
+				      	}
+				   	}
+				]
+			};
 
 
-		socket.emit('/server/create/order', data);
+			socket.emit('/server/create/order', data);
+		}
 	};
 	
 

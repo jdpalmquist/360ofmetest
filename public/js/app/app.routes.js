@@ -46,6 +46,18 @@ angular.module('360ofme')
         templateUrl: 'js/app/views/order.detail.client.view.html',
         controller: 'OrderdetailController'
       }).
+      when('/products', {
+        templateUrl: 'js/app/views/products.client.view.html',
+        controller: 'ProductsController'
+      }).
+      when('/create/product', {
+        templateUrl: 'js/app/views/product.create.client.view.html',
+        controller: 'ProductsController'
+      }).
+      when('/products/:id',{
+        templateUrl: 'js/app/views/product.detail.client.view.html',
+        controller: 'ProductdetailController'
+      }).
       otherwise({
         redirectTo: '/'
       });

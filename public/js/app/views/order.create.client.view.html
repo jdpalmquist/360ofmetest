@@ -13,11 +13,17 @@
 				</div>
 				<div class="panel-body">
 					<div class="input-group">
+					  	<span class="input-group-addon">Name</span>
+					  	<input data-ng-model="order_name" type="text" class="form-control" aria-label="Order name...">
+					</div>
+					<br/>
+					<div class="input-group">
 					  	<span class="input-group-addon">Account</span>
 					  	<select data-ng-model="account_id" class="form-control">
 					  		<option data-ng-repeat="a in accounts" value="{{a.Id}}">{{a.Name}}</option>
 					  	</select>
 					</div>
+					<br/>
 				</div>
 				<div class="panel-footer" style="text-align:right;">
 					<button class="btn btn-primary" data-ng-click="create_order()">
