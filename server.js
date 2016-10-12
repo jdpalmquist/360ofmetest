@@ -28,6 +28,8 @@ app.use(express.static(__dirname + '/public')); //static serve the SPA html from
 
 //	DESCRIBE ROUTES FOR DISPLAYING SALESFORCE OBJECT METADATA
 app.route('/describe/account').get(socketapi.on.describe.account);
+app.route('/describe/order').get(socketapi.on.describe.order);
+app.route('/describe/product').get(socketapi.on.describe.product);
 
 
 

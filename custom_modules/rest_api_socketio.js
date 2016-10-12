@@ -311,6 +311,10 @@ function get_all_orders(socket){
 }
 
 
+function get_all_products(socket){
+
+}
+
 
 //	DESCRIBE FUNCTIONS
 //==================================================================================================
@@ -344,6 +348,60 @@ var describe = {
 			}
 		});
 	},
+	order: function(req, res){
+		var ext = '/services/data/' + cfg.version + '/sobjects/Order/describe';
+		var url = cfg.instanceUrl + ext;
+		var options = {
+		  	headers: {
+		  		'Authorization': 'Bearer ' + cfg.accessToken,
+		  		/*
+		  		'content-type' : 'application/json',
+		  		'content-type' : 'application/x-www-form-urlencoded',
+		  		*/
+
+		  	},
+		  	url: url,
+		  	
+		};
+
+		request.get(options, function(error, response, body){
+			if(error){
+				console.error('REST_API_SOCKETIO --> describe_order() --> error: ', error);
+			}
+			else{
+				body = JSON.parse(body);
+				res.type('application/json');
+				res.send(body);
+			}
+		});
+	},
+	product: function(req, res){
+		var ext = '/services/data/' + cfg.version + '/sobjects/Product/describe';
+		var url = cfg.instanceUrl + ext;
+		var options = {
+		  	headers: {
+		  		'Authorization': 'Bearer ' + cfg.accessToken,
+		  		/*
+		  		'content-type' : 'application/json',
+		  		'content-type' : 'application/x-www-form-urlencoded',
+		  		*/
+
+		  	},
+		  	url: url,
+		  	
+		};
+
+		request.get(options, function(error, response, body){
+			if(error){
+				console.error('REST_API_SOCKETIO --> describe_product() --> error: ', error);
+			}
+			else{
+				body = JSON.parse(body);
+				res.type('application/json');
+				res.send(body);
+			}
+		});
+	},
 };
 
 
@@ -353,6 +411,7 @@ module.exports = {
 			all_accounts: get_all_accounts,
 			all_contracts: get_all_contracts,
 			all_orders: get_all_orders,
+			all_products: get_all_products,
 		},
 		create: {
 			account: create_account,
