@@ -229,8 +229,72 @@ function get_accounts(socket){
 }
 
 
-function get_contracts(){}
-function get_orders(){}
+function get_contracts(){
+	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, CreatedDate FROM Contracts ORDER BY CreatedDate DESC';
+	var url = cfg.instanceUrl + ext;
+	var options = {
+	  	headers: {
+	  		'Authorization': 'Bearer ' + cfg.accessToken,
+	  		/*
+	  		'content-type' : 'application/json',
+	  		'content-type' : 'application/x-www-form-urlencoded',
+	  		*/
+
+	  	},
+	  	url: url,
+	  	
+	};
+
+	request.get(options, function(error, response, body){
+		if(error){
+			console.error('ADAPTER_REQUEST_SALESFORCE --> get_contracts() --> error: ', error);
+		}
+		else{
+			body = JSON.parse(body);
+			//console.log('ADAPTER_REQUEST_SALESFORCE --> get_contracts() --> body: ', body);
+			
+			//response structure:
+			/*
+			*/
+			
+			socket.emit('/client/get/contracts/response', {"response": body.done ? "success" : "failure", "data": body.records});
+		}
+	});
+}
+
+
+function get_orders(socket){
+	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, CreatedDate FROM Order ORDER BY CreatedDate DESC';
+	var url = cfg.instanceUrl + ext;
+	var options = {
+	  	headers: {
+	  		'Authorization': 'Bearer ' + cfg.accessToken,
+	  		/*
+	  		'content-type' : 'application/json',
+	  		'content-type' : 'application/x-www-form-urlencoded',
+	  		*/
+
+	  	},
+	  	url: url,
+	  	
+	};
+
+	request.get(options, function(error, response, body){
+		if(error){
+			console.error('ADAPTER_REQUEST_SALESFORCE --> get_orders() --> error: ', error);
+		}
+		else{
+			body = JSON.parse(body);
+			console.log('ADAPTER_REQUEST_SALESFORCE --> get_orders() --> body: ', body);
+			
+			//response structure:
+			/*
+			*/
+			
+			socket.emit('/client/get/orders/response', {"response": body.done ? "success" : "failure", "data": body.records});
+		}
+	});
+}
 
 
 

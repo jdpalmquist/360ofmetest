@@ -37,19 +37,23 @@ io.on('connection', function (socket) {
 	//socket.on('/server/get/orders', function(){ socketapi.on.get_orders(socket); });
 
 
+	//	CLIENT --> SERVER: GET ALL ACCOUNTS
+	socket.on('/server/get/accounts', function(){ socketapi.on.get.all_accounts(socket, 'accounts'); });
+	socket.on('/server/get/accounts/for/orders/page', function(){ socketapi.on.get.all_accounts(socket, 'create_order'); });
+
+
 	//	CLIENT --> SERVER: CREATE ACCOUNT
 	socket.on('/server/create/account', function(data){ socketapi.on.create.account(socket, data); });
 
 
-	//	CLIENT --> SERVER: GET ALL ACCOUNTS
-	socket.on('/server/get/accounts', function(data){ socketapi.on.get_all_accounts(socket); });
 
 
+	//	CLIENT --> SERVER: GET ALL ORDERS
+	socket.on('/server/get/orders', function(){ socketapi.on.get.all_orders(socket); });
 
 
 	//	CLIENT --> SERVER: CREATE ORDER
 	socket.on('/server/create/order', function(data){ socketapi.on.create.order(socket, data); });
-
 });
 
 
