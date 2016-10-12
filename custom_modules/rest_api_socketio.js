@@ -352,7 +352,7 @@ function get_all_orders(socket){
 
 
 function get_all_products(socket){
-	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name FROM Product2';
+	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, Family FROM Product2 ORDER BY CreatedDate DESC';
 	var url = cfg.instanceUrl + ext;
 	var options = {
 	  	headers: {
