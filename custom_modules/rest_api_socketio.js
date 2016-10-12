@@ -69,7 +69,47 @@ request.post(url, options, function(error, response, body1){
 //=============================================================
 
 
-function create_order_item(){}
+function create_product(socket, data){
+	var ext = '/services/data/' + cfg.version + '/sobjects/Product2';
+	var url = cfg.instanceUrl + ext;
+
+
+	/*
+		var options = {
+		  	headers: {
+		    	'Authorization': 'Bearer ' + cfg.accessToken,
+				'content-type' : 'application/x-www-form-urlencoded',
+				'content-type' : 'application/json'
+		  	},
+		  	url:     url,
+		  	body:    data
+		};
+	*/
+
+
+	var options = {
+	  	headers: {
+	  		'Authorization': 'Bearer ' + cfg.accessToken,
+	  		'content-type' : 'application/json'
+	  		/*'content-type' : 'application/x-www-form-urlencoded'*/
+
+	  	},
+	  	url:     url,
+	  	body:    JSON.stringify(data)
+	};
+
+	request.post(options, function(error, response, body){
+		if(error){
+			console.error('REST_API_SOCKETIO --> create_product() --> error: ', error);
+		}
+		else{
+			//console.log('REST_API_SOCKETIO --> create_product() --> response: ', response);
+			console.log('REST_API_SOCKETIO --> create_product() --> body: ', body);
+
+			socket.emit('/client/create/product/response', body);
+		}
+	});
+}
 
 
 function create_order(socket, data){
@@ -333,7 +373,7 @@ function get_all_products(socket){
 		}
 		else{
 			body = JSON.parse(body);
-			console.log('REST_API_SOCKETIO --> get_products() --> body: ', body);
+			//console.log('REST_API_SOCKETIO --> get_products() --> body: ', body);
 			
 			//response structure:
 			/*
@@ -446,6 +486,7 @@ module.exports = {
 			account: create_account,
 			contract: create_contract,
 			order: create_order,
+			product: create_product,
 		},
 		describe: describe
 	}
