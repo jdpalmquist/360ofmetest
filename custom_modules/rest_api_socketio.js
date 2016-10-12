@@ -10,19 +10,15 @@ var cfg 		= require('./config_salesforce');
 var adapter 	= require('./adapter_request_salesforce');
 
 
-/*
-function create_contract_order(socket){
-	var ext = '/services/data/'+cfg.version+'/commerce/sale';
-	var url = cfg.instanceUrl + ext;
-
-	adapter.post(url, function(a,b,c,d){
-		console.log('REST_API_SOCKETIO --> create_contract_order() --> results: ', {a:a, b:b, c:c, d:d});
-  		socket.emit('/socketio/get/orders/response', {"data": {a:a, b:b, c:c, d:d}});
-	});
+function create_account(socket, d){
+	console.log('DEBUG: REST_API_SOCKETIO --> create_account() --> param d:', d);
+	adapter.post.create_account(socket, d);
 }
-*/
 
-function create_order(){
+
+
+function create_order(socket, d){
+	//example data
 	/*
 		{
 			"order": [
@@ -51,9 +47,6 @@ function create_order(){
 		    ]
 		}
 	*/
-
-	var ext = '/services/data/' + cfg.version + '/commerce/sale/order';
-	var url = cfg.instanceUrl + ext;
 	var data = {
 		"order": [
 			{
@@ -63,7 +56,7 @@ function create_order(){
 		     	"EffectiveDate": moment().format('YYYY-MM-DD'), // "2013-07-11",
 		      	"Status": "Draft",
 		      	"billingCity": "SFO-Inside-OrderEntity-1",
-		      	"accountId": cfg.account.user_id,
+		      	"accountId": '00141000006SLyTAAW',
 		      	"Pricebook2Id": "01sD0000000G2NjIAK",
 		      	"OrderItems": {
 		        	"records": [
@@ -80,9 +73,9 @@ function create_order(){
 		    }
 	    ]
 	};
-	adapter.post(url, data, function(a,b,c,d){
+	adapter.post.create_order(socket, data, function(a,b,c,d){
 		console.log('REST_API_SOCKETIO --> create_order() --> results: ', {a:a, b:b, c:c, d:d});
-  		socket.emit('/socketio/create/order/response', {"data": {a:a, b:b, c:c, d:d}});
+  		socket.emit('/client/create/order/response', {"data": {a:a, b:b, c:c, d:d}});
 	});
 }
 
@@ -104,6 +97,9 @@ module.exports = {
 	},
 	on: {
 		get_orders: get_orders_from_salesforce,
-		create_order: create_order,
+		create: {
+			account: create_account,
+			order: create_order,
+		}
 	}
 };

@@ -1,5 +1,5 @@
 angular.module('360ofme')
-.controller('OrdersdetailController', [
+.controller('OrderdetailController', [
 '$scope',
 '$http', 
 '$location',

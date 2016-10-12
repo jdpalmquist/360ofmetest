@@ -63,51 +63,105 @@ request.post(url, options, function(error, response, body1){
 });
 
 
-function get(url, callback){
+//=============================================================
+
+
+function create_order_item(){}
+
+
+function create_order(socket, data){
+	var ext = '/services/data/' + cfg.version + '/commerce/sale/order';
+	var url = cfg.instanceUrl + ext;
+
+
+	//console.log('DEBUG ADAPTER_REQUEST_SALESFORCE --> create_order --> account object: ', cfg.account);
+
+	
+	/*
+		var options = {
+		  	headers: {
+		    	'Authorization': 'Bearer ' + cfg.accessToken
+				'content-type' : 'application/x-www-form-urlencoded'
+		  	},
+		  	url:     url,
+		  	body:    data
+		};
+	*/
+
+
 	var options = {
-	  	url: url,
 	  	headers: {
-	    	'Authorization': 'Bearer ' + cfg.accessToken
-	  	}
+	  		'Authorization': 'Bearer ' + cfg.accessToken,
+	  		'content-type' : 'application/json'
+	  		/*'content-type' : 'application/x-www-form-urlencoded'*/
+
+	  	},
+	  	url:     url,
+	  	body:    JSON.stringify(data)
 	};
 
-	request.get(options, function(error, response, body){
+	request.post(options, function(error, response, body){
 		if(error){
-			console.error('SALESFORCE_REST_API --> salesforce_request() --> error: ', error);
+			console.error('ADAPTER_REQUEST_SALESFORCE --> create_order() --> error: ', error);
 		}
 		else{
-			//console.log('SALESFORCE_REST_API --> salesforce_request() --> response: ', response);
-			console.log('SALESFORCE_REST_API --> salesforce_request() --> body: ', body);
+			//console.log('ADAPTER_REQUEST_SALESFORCE --> create_order() --> response: ', response);
+			console.log('ADAPTER_REQUEST_SALESFORCE --> create_order() --> body: ', body);
 
-			callback(body);
+			socket.emit('/client/create/order/response', body);
 		}
 	});
 }
 
 
-function post(url, data, callback){
-	
+function create_contract(){}
+
+
+function create_account(socket, data){
+	var ext = '/services/data/' + cfg.version + '/sobjects/Account/';
+	var url = cfg.instanceUrl + ext;
 	var options = {
-	  	headers: {'content-type' : 'application/x-www-form-urlencoded'},
+	  	headers: {
+	  		'Authorization': 'Bearer ' + cfg.accessToken,
+	  		'content-type' : 'application/json'
+	  		/*'content-type' : 'application/x-www-form-urlencoded'*/
+
+	  	},
 	  	url:     url,
-	  	body:    data
+	  	body:    JSON.stringify(data)
 	};
 
 	request.post(options, function(error, response, body){
 		if(error){
-			console.error('SALESFORCE_REST_API --> salesforce_request() --> error: ', error);
+			console.error('ADAPTER_REQUEST_SALESFORCE --> create_account() --> error: ', error);
 		}
 		else{
-			//console.log('SALESFORCE_REST_API --> salesforce_request() --> response: ', response);
-			console.log('SALESFORCE_REST_API --> salesforce_request() --> body: ', body);
+			//console.log('ADAPTER_REQUEST_SALESFORCE --> create_account() --> response: ', response);
+			
+			//response structure:
+			/*
+				{
+					"id":"00141000006SLyTAAW",
+					"success":true,
+					"errors":[]
+				}
+			*/
+			console.log('ADAPTER_REQUEST_SALESFORCE --> create_account() --> body: ', body);
 
-			callback(body);
+			socket.emit('/client/create/account/response', {"success": body.success, "errors": body.errors});
 		}
 	});
 }
 
 
 module.exports = {
-    get: get,
-    post: post
+    get: {
+
+    },
+    post: {
+    	create_order_item: create_order_item,
+    	create_order: create_order,
+    	create_contract: create_contract,
+    	create_account: create_account,
+    }
 };
