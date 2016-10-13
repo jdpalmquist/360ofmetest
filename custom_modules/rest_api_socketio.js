@@ -195,9 +195,12 @@ function create_contract(){
 }
 
 
-function create_account(socket, data){
-	var ext = '/services/data/' + cfg.version + '/sobjects/Account/';
+function create_account(socket, d){
+	var ext = '/services/apexrest/Accounts/create';
 	var url = cfg.instanceUrl + ext;
+	var data = {
+		"accountName": d.Name
+	};
 	var options = {
 	  	headers: {
 	  		'Authorization': 'Bearer ' + cfg.accessToken,
@@ -238,7 +241,9 @@ function create_account(socket, data){
 
 function get_all_accounts(socket, page){
 
-	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, CreatedDate FROM Account ORDER BY CreatedDate DESC';
+	//var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, CreatedDate FROM Account ORDER BY CreatedDate DESC';
+	
+	var ext = '/services/apexrest/Accounts/get';
 	var url = cfg.instanceUrl + ext;
 	var options = {
 	  	headers: {
@@ -259,8 +264,8 @@ function get_all_accounts(socket, page){
 		}
 		else{
 			body = JSON.parse(body);
-			//console.log('REST_API_SOCKETIO --> get_accounts() --> body: ', body);
 			
+			//console.log('REST_API_SOCKETIO --> get_accounts() --> body: ', body);
 			//response structure:
 			/*
 			*/
@@ -277,7 +282,7 @@ function get_all_accounts(socket, page){
 				break;
 			}
 
-			socket.emit(dest, {"response": body.done ? "success" : "failure", "data": body.records});
+			socket.emit(dest, {"response": "success", "data": body});
 		}
 	});
 }
