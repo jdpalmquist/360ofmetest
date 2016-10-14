@@ -7,10 +7,9 @@ function($scope, $http, $location){
 
 	$scope.list = [];
 	$scope.product_name = null;
+	$scope.product_price = null;
 	$scope.product_family = null;
 	$scope.product_description = null;
-
-
 
 	$scope.validate = {
 		create_product: function(){
@@ -56,6 +55,7 @@ function($scope, $http, $location){
 
 			var data = {
 				"Name": $scope.product_name,
+				"Price": $scope.product_price,
 				"Family": $scope.product_family,
 				"Description": $scope.product_description
 			};

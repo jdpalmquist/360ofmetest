@@ -69,23 +69,22 @@ request.post(url, options, function(error, response, body1){
 //=============================================================
 
 
-function create_product(socket, data){
-	var ext = '/services/data/' + cfg.version + '/sobjects/Product2';
-	var url = cfg.instanceUrl + ext;
-
-
+function create_product(socket, d){
 	/*
-		var options = {
-		  	headers: {
-		    	'Authorization': 'Bearer ' + cfg.accessToken,
-				'content-type' : 'application/x-www-form-urlencoded',
-				'content-type' : 'application/json'
-		  	},
-		  	url:     url,
-		  	body:    data
-		};
+		"Name": 
+		"Price": 
+		"Family": 
+		"Description":
 	*/
 
+	var ext = '/services/apexrest/Products/create';
+	var url = cfg.instanceUrl + ext;
+	var data = {
+		"productName": d.Name,
+		"productPrice": d.Price,
+		"productFamily": d.Family,
+		"productDescription": d.Description
+	};
 
 	var options = {
 	  	headers: {
@@ -112,27 +111,34 @@ function create_product(socket, data){
 }
 
 
-function create_order(socket, data){
-	var ext = '/services/data/' + cfg.version + '/commerce/sale/order';
+function create_order(socket, d){
+	var ext = '/services/apexrest/Orders/create';
 	var url = cfg.instanceUrl + ext;
-
-
-	//console.log('DEBUG REST_API_SOCKETIO --> create_order --> account object: ', cfg.account);
-
-	
 	/*
-		var options = {
-		  	headers: {
-		    	'Authorization': 'Bearer ' + cfg.accessToken,
-				'content-type' : 'application/x-www-form-urlencoded',
-				'content-type' : 'application/json'
-		  	},
-		  	url:     url,
-		  	body:    data
-		};
+	var data = {
+		"order": [
+		    {
+		      	"attributes": {
+		      		"type": "Order"
+		      	},
+		      	"Name": d.Name,
+		      	"EffectiveDate": moment().format('YYYY-MM-DD'),
+		      	"Status": "Draft",
+		      	"billingCity": "SFO-Inside-OrderEntity-1",
+		      	"accountId": d.AccountID,
+		      	"OrderItems": {
+		         	"records": []
+		      	}
+		   	}
+		]
+	};
 	*/
-
-
+	var data = {
+		"orderName": d.Name,
+		"accountId": d.AccountID,
+		"effectiveDate": moment().format('YYYY-MM-DD'),
+		"status": "Draft",
+	};
 	var options = {
 	  	headers: {
 	  		'Authorization': 'Bearer ' + cfg.accessToken,

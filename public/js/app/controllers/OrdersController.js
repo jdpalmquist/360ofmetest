@@ -59,24 +59,11 @@ function($scope, $http, $location){
 	$scope.create_order = function(){
 		if($scope.validate.create_new_order()){			
 			var data = {
-				"order": [
-				    {
-				      	"attributes": {
-				      		"type": "Order"
-				      	},
-				      	"Name": $scope.order_name,
-				      	"EffectiveDate": moment().format('YYYY-MM-DD'),
-				      	"Status": "Draft",
-				      	"billingCity": "SFO-Inside-OrderEntity-1",
-				      	"accountId": $scope.account_id,
-				      	/*"Pricebook2Id": "01sD0000000G2NjIAK",*/ // docs say that pricebook has been deprecated since v8.0?
-				      	"OrderItems": {
-				         	"records": []
-				      	}
-				   	}
-				]
+				"Name": $scope.order_name,
+				"AccountID": $scope.account_id,
 			};
 
+			/*
 			if($scope.added_products.length > 0){
 				for(var i = 0; i < $scope.added_products.length; i++){
 					data.order[0].OrderItems.records.push({
@@ -89,6 +76,7 @@ function($scope, $http, $location){
 					});
 				}
 			}
+			*/
 
 
 			socket.emit('/server/create/order', data);
