@@ -158,43 +158,6 @@ function create_order(socket, data){
 }
 
 
-function create_contract(){
-	var ext = '/services/data/' + cfg.version + '/sobjects/Account/';
-	var url = cfg.instanceUrl + ext;
-	var options = {
-	  	headers: {
-	  		'Authorization': 'Bearer ' + cfg.accessToken,
-	  		'content-type' : 'application/json'
-	  		/*'content-type' : 'application/x-www-form-urlencoded'*/
-
-	  	},
-	  	url:     url,
-	  	body:    JSON.stringify(data)
-	};
-
-	request.post(options, function(error, response, body){
-		if(error){
-			console.error('REST_API_SOCKETIO --> create_account() --> error: ', error);
-		}
-		else{
-			//console.log('REST_API_SOCKETIO --> create_account() --> response: ', response);
-			
-			//response structure:
-			/*
-				{
-					"id":"00141000006SLyTAAW",
-					"success":true,
-					"errors":[]
-				}
-			*/
-			console.log('REST_API_SOCKETIO --> create_account() --> body: ', body);
-
-			socket.emit('/client/create/account/response', {"success": body.success, "errors": body.errors});
-		}
-	});
-}
-
-
 function create_account(socket, d){
 	var ext = '/services/apexrest/Accounts/create';
 	var url = cfg.instanceUrl + ext;
@@ -240,9 +203,6 @@ function create_account(socket, d){
 
 
 function get_all_accounts(socket, page){
-
-	//var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, CreatedDate FROM Account ORDER BY CreatedDate DESC';
-	
 	var ext = '/services/apexrest/Accounts/get';
 	var url = cfg.instanceUrl + ext;
 	var options = {
@@ -288,42 +248,8 @@ function get_all_accounts(socket, page){
 }
 
 
-function get_all_contracts(){
-	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, CreatedDate FROM Contracts ORDER BY CreatedDate DESC';
-	var url = cfg.instanceUrl + ext;
-	var options = {
-	  	headers: {
-	  		'Authorization': 'Bearer ' + cfg.accessToken,
-	  		/*
-	  		'content-type' : 'application/json',
-	  		'content-type' : 'application/x-www-form-urlencoded',
-	  		*/
-
-	  	},
-	  	url: url,
-	  	
-	};
-
-	request.get(options, function(error, response, body){
-		if(error){
-			console.error('REST_API_SOCKETIO --> get_contracts() --> error: ', error);
-		}
-		else{
-			body = JSON.parse(body);
-			//console.log('REST_API_SOCKETIO --> get_contracts() --> body: ', body);
-			
-			//response structure:
-			/*
-			*/
-			
-			socket.emit('/client/get/contracts/response', {"response": body.done ? "success" : "failure", "data": body.records});
-		}
-	});
-}
-
-
 function get_all_orders(socket){
-	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, CreatedDate FROM Order ORDER BY CreatedDate DESC';
+	var ext = '/services/apexrest/Orders/get';
 	var url = cfg.instanceUrl + ext;
 	var options = {
 	  	headers: {
@@ -350,14 +276,14 @@ function get_all_orders(socket){
 			/*
 			*/
 			
-			socket.emit('/client/get/orders/response', {"response": body.done ? "success" : "failure", "data": body.records});
+			socket.emit('/client/get/orders/response', {"response": "success", "data": body});
 		}
 	});
 }
 
 
 function get_all_products(socket, page){
-	var ext = '/services/data/' + cfg.version + '/query/?q=SELECT Id, Name, Family FROM Product2 ORDER BY CreatedDate DESC';
+	var ext = '/services/apexrest/Products/get';
 	var url = cfg.instanceUrl + ext;
 	var options = {
 	  	headers: {
@@ -396,7 +322,7 @@ function get_all_products(socket, page){
 				break;
 			}
 
-			socket.emit(dest, {"response": body.done ? "success" : "failure", "data": body.records});
+			socket.emit(dest, {"response": "success", "data": body});
 		}
 	});
 }
@@ -495,13 +421,11 @@ module.exports = {
 	on: {
 		get: {
 			all_accounts: get_all_accounts,
-			all_contracts: get_all_contracts,
 			all_orders: get_all_orders,
 			all_products: get_all_products,
 		},
 		create: {
 			account: create_account,
-			contract: create_contract,
 			order: create_order,
 			product: create_product,
 		},
